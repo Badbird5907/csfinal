@@ -26,7 +26,6 @@ def drawToasts():
     drawToast(t["text"], millis() - t["start"], t["duration"])
 
 
-
 def drawToast(txt, time, duration):
   global toastEdge, toastMiddle
   middle_length = 64

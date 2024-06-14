@@ -91,6 +91,8 @@ def drawIntro():
     offset = getKeyOffset()
     renderKeyAnimated(start[0] + 120, start[1] + offset + 50, "E")
     text(" to start!", start[0] + 160, start[1] + 100)
+  renderKey(width, height, "e", False)
+  text("Skip", width - 50, height - 100)
   if (isKeyPressed("e")):
       global scene
       scene = "game"

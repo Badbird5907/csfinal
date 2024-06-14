@@ -2,13 +2,16 @@ from Processing3 import *
 from renderer.brainrot import playBrainRot
 from scene.scene import *
 from renderer.key import *
+from util.font import loadMinecraftFont
 from util.ticker import *
 from renderer.renderer import *
 from renderer.fps import drawFPS
 from renderer.human import *
 from renderer.toast import *
+from renderer.button import *
 from util.debugger import *
 from util.key import *
+from util.audio import *
 from level.follower import *
 from level.pathfinder import *
 
@@ -46,12 +49,14 @@ def setup():
   initDebugger()
 
   initFollower()
+  initAudio()
 
-  font = createFont("assets/not-minecraft.otf", 30)
-  textFont(font)
+  print(__cwd__)
+
+  loadMinecraftFont()
   setInterval(calculatePaths, 50)
-  playBrainRot("https://cdn.badbird.dev/assets/brainrot/parkour.webm", 10, 40)
-  playBrainRot("https://cdn.badbird.dev/assets/brainrot/subway.webm", 1550, 40)
+  #playBrainRot("https://cdn.badbird.dev/assets/brainrot/parkour.webm", 10, 40)
+  #playBrainRot("https://cdn.badbird.dev/assets/brainrot/subway.webm", 1550, 40)
   return
 
 def draw():
@@ -64,11 +69,13 @@ def draw():
     last_tick_overhead.pop(0)
   mspt_overhead = sum(last_tick_overhead) / len(last_tick_overhead)
 
+  #textAlign(CENTER, CENTER)
   clear()
   update()
   drawScene()
   drawToasts()
   drawFPS()
+  updateButtons()
   keyRenderEnd()
 
   ms = millis() - start
@@ -89,3 +96,6 @@ def mouseReleased():
   goalEditorMouseClicked()
   polyEditorMouseClicked()
   rayCastDbgMouseClicked()
+  buttonsHandleClick()
+
+  playAudio("vine-boom")

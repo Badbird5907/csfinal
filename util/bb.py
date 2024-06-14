@@ -1,10 +1,5 @@
 from Processing3 import *
 
-def isMouseHovering(min, max):
-  if (mouseX >= min[0] and mouseX <= max[0] and mouseY >= min[1] and mouseY <= max[1]):
-    return True
-  return False
-
 def fixBB(bb):
   return [(min(bb[0][0], bb[1][0]), min(bb[0][1], bb[1][1])), (max(bb[0][0], bb[1][0]), max(bb[0][1], bb[1][1]))]
 def fixBBMin(bb):
