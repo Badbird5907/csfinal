@@ -12,26 +12,26 @@ from level.timer import *
 from util.audio import *
 
 def game_countScore():
-  global humans, score, difficulty
+  global humans, difficulty, extra_score
   if (difficulty != "easy"):
-    score = 0
+    humansScore = 0
   for id in humans: # make sure there is no concurrent modification issues
     human = humans[id]
-    if (human["hidden"]):
+    if (human["hidden"] or human["enemy"]):
       continue
     # if the human x is > 850
     pos = human["pos"]
     if (pos[0] > 850):
       if (isHumanAtWater(human)):
         if (difficulty == "easy"):
-          score += 5
-          removeHuman(id)
+          extra_score += 5
+          removeEntity(id)
           playAudio("splash_in")
         else:
-          score += 10
-  return score
+          humansScore += 10
+  return humansScore + extra_score
 
-def game_timerFinished():
+def game_endGame():
   global scene
   scene = "end"
   return
@@ -39,16 +39,25 @@ def game_timerFinished():
 def setupGame():
   initPlayerControl(1920/2, 1080/2)
   global lvl_bg, main_trees, grid, last_human_spawn, max_humans_following
-  global water_polys, timer_seconds, difficulty
+  global water_polys, timer_seconds, difficulty, hp, last_enemy_spawn, enemy_spawn_rate
   lvl_bg = loadImage("assets/levels/1/bg.png")
   main_trees = loadImage("assets/levels/1/trees.png")
   initDebugger()
   last_human_spawn = -1
   max_humans_following = 3 if difficulty == "hard" else (5 if difficulty == "medium" else -1)
-  
+  last_enemy_spawn = millis()
+  if difficulty == "hard":
+    hp = 5
+    enemy_spawn_rate = 4500
+  elif difficulty == "medium":
+    hp = 7
+    enemy_spawn_rate = 6000
+  else:
+    hp = 9
+    enemy_spawn_rate = 7500
   grid = construct_grid()
   water_polys = [[(864, 872), (1000, 640), (1128, 464), (1232, 248), (1448, 0), (1632, 0), (1576, 104), (1392, 312), (1280, 496), (1168, 688), (1048, 872), (864, 872)]]
-  initTimer(60 * 2, game_timerFinished)
+  initTimer(60 * 2, game_endGame)
   setupScoreTracker(game_countScore)
   return
 
@@ -60,9 +69,9 @@ def cleanupGame():
   return
 
 def drawGame():
-  playerControlTick()
+  playerControlTick(game_endGame)
   global lvl_bg, main_trees, debug_bb, last_human_spawn, pX, pY, water_polys
-  global meme_muted
+  global meme_muted, last_enemy_spawn, enemy_spawn_rate
   image(lvl_bg, 0, 0)
 
   tickFollower()
@@ -90,8 +99,15 @@ def drawGame():
     # create a random human in the tree area
     hX = random(0, 669)
     hY = random(205, 310)
-    createHuman(hX, hY)
+    createEntity(hX, hY)
     last_human_spawn = millis()
+  
+  if (millis() - last_enemy_spawn > enemy_spawn_rate):
+    # create a random enemy in the tree area
+    hX = random(0, 1000)
+    hY = random(205, 400)
+    createEntity(hX, hY, True)
+    last_enemy_spawn = millis()
   
   drawTimer()
   drawScore()

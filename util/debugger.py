@@ -1,7 +1,7 @@
 from level.pathfinder import *
 from renderer.key import *
 from util.key import *
-from renderer.human import *
+from renderer.sprite.human import *
 from renderer.debug.goaleditor import *
 from renderer.debug.polyeditor import *
 from renderer.debug.raycastdbg import *
@@ -55,8 +55,11 @@ def tickDebuggerOverlay():
   humanSpawned = False
   if (isKeyTyped("h")):
     global pX, pY
-    createHuman(pX, pY)
+    createEntity(pX, pY)
     humanSpawned = True
+  if (isKeyTyped("y")):
+    global pX, pY
+    createEntity(pX, pY, True)
   
   if (isKeyTyped("k")):
     enableGoalBBEditor = not enableGoalBBEditor
@@ -97,6 +100,7 @@ def tickDebuggerOverlay():
       ("b", "Toggle bounding boxes " + ("(ON)" if debug_bb else "(OFF)"), debug_bb),
       ("g", "Toggle pathfinder grid (laggy but cool)", drawPathfinder),
       ("h", "Spawn human", humanSpawned),
+      ("y", "Spawn enemy", False),
       ("k", "Toggle goal bounding box editor", enableGoalBBEditor),
       ("p", "Toggle polygon editor", enablePolygonBBEditor),
       ("r", "Toggle ray cast debugger", enableRayCastDebugger)

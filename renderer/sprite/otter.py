@@ -30,10 +30,15 @@ def initOtter():
     run_imgs.append(loadImage("assets/otter/otter_run_" + str(i + 1) + ".png"))
 
 def drawImage(img, x, y):
-  global facing, otter_scale, pbbMax
+  global facing, otter_scale, pbbMax, last_atk
   w = img.width * otter_scale
   h = img.height * otter_scale
   pbbMax = (w, h)
+  # show hurt (tint red) for 250ms if last_atk is less than 250ms ago
+  if millis() - last_atk < 250:
+    tint(255, 0, 0)
+  else:
+    noTint()
   if facing == "front":
     image(img, x, y, w, h)
   elif facing == "back":
@@ -66,6 +71,8 @@ def drawImage(img, x, y):
     # draw a circle at the actual point (x,y)
     fill(255, 0, 0)
     ellipse(x, y, 10, 10)
+  
+  noTint()
 
 
 def drawIdle(x,y):

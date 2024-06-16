@@ -11,7 +11,7 @@ def initAudio():
   global audioCache, minim
   audioCache = {}
   minim = Minim(this)
-  audiofiles = ["vine-boom", "rick", "splash_in", "clock_1", "grass"]
+  audiofiles = ["vine-boom", "rick", "splash_in", "clock_1", "grass", "hurt", "classic_hurt"]
   for file in audiofiles:
     loadAudio(file)
 

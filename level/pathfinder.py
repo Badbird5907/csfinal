@@ -74,18 +74,19 @@ def calculatePaths():
     return
   human_positions = {} # [ (x, y), (x, y), ...]
   for id in humans:
-    if humans[id]["hidden"]:
+    human = humans[id]
+    if human["hidden"] or human["enemy_fade_start"] != -1:
       continue
-    if not humans[id]["follow"]:
+    if not human["follow"] and not human["enemy"]:
       currPath = []
       if id in calc_paths:
         currPath = calc_paths[id]["path"] # copy over the old path (wander)
-      human_positions[id] = createPathData(humans[id], currPath, humans[id]["pos"][0] // tile_size, humans[id]["pos"][1] // tile_size)
+      human_positions[id] = createPathData(human, currPath, human["pos"][0] // tile_size, human["pos"][1] // tile_size)
       continue
-    human = humans[id]
     x = human["pos"][0] // tile_size
     y = human["pos"][1] // tile_size
-    path = pathfind(grid, (x, y), (pX // tile_size, pY // tile_size))
+    target = ((pX // tile_size) + ((1 * 32) // tile_size), (pY // tile_size) + ((2 * 32) // tile_size)) if human["enemy"] else (pX // tile_size, pY // tile_size)
+    path = pathfind(grid, (x, y), target)
     if (isKeyPressed("p")):
       print(path)
     dict = createPathData(human, path, x, y)

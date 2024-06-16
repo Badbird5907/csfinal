@@ -10,8 +10,11 @@ def initPlayerControl(spawnX, spawnY):
   velY = 0
   pbbMax = (0, 0)
   last_walk_audio = -1
-def playerControlTick():
-  global pX, pY, facing, velX, velY, last_walk_audio
+def playerControlTick(endGameFunc = None):
+  global pX, pY, facing, velX, velY, last_walk_audio, hp
+  if (endGameFunc != None and hp <= 0):
+    endGameFunc()
+    return
   pXBefore = pX
   pYBefore = pY
   mov = 0.5
