@@ -6,7 +6,7 @@ from util.key import *
 from level.player_control import *
 from renderer.button import *
 
-from renderer.human import *
+from renderer.sprite.human import *
 from renderer.key import *
 from util.polygon import *
 

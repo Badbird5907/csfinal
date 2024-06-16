@@ -4,7 +4,7 @@ from util.debugger import *
 
 from level.pathfinder import *
 from util.random import *
-from renderer.human import *
+from renderer.sprite.human import *
 
 def initFollower():
     global human_turn_debounce
@@ -56,7 +56,7 @@ def tickFollower():
     move_speed = 1 # base move speed
     for id in humans:
         human = humans[id]
-        if human["hidden"]:
+        if human["hidden"] or human["enemy_fade_start"] != -1:
             continue
         wander(human)
         if (id not in calc_paths) or (
@@ -81,6 +81,8 @@ def tickFollower():
             else:
                 move_speed = 1
         human["speed"] = move_speed
+        if human["enemy"]:
+            human["speed"] = 2.5 # fast as fuck boiiiiii
 
 
         next_tile_idx = 0 if len(path_data["path"]) == 1 else 1

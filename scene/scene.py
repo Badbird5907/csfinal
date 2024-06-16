@@ -48,7 +48,9 @@ def drawScene():
   scenes[scene]["main"]()
   if (level_audio != None):
     renderKey(width - 140, height - 50 - getKeyOffset(), "m", meme_muted)
-    text("Unmute" if meme_muted else "Mute", width - 100, height - 50)
+    textSize(16)
+    fill(0)
+    text("Meme On" if meme_muted else "Meme Off", width - 100, height - 50)
     if (isKeyTyped("m")):
       meme_muted = not meme_muted
       if meme_muted:

@@ -6,7 +6,7 @@ from util.font import loadMinecraftFont
 from util.ticker import *
 from renderer.renderer import *
 from renderer.fps import drawFPS
-from renderer.human import *
+from renderer.sprite.human import *
 from renderer.toast import *
 from renderer.button import *
 from util.debugger import *
@@ -22,7 +22,7 @@ from renderer.debug.raycastdbg import *
 def setup():
   global scene, tick, last_input, heldKeys, lastScene
   global tile_size, typedKey, mspt, last_ticks, mspt_overhead, last_tick_overhead, last_tick_end, mspt_total
-  global water_polys, score, tid, runningTids, difficulty, meme_muted, level_audio
+  global water_polys, score, tid, runningTids, difficulty, meme_muted, level_audio, hp, last_atk, extra_score
   scene = "main"
   last_input = millis()
   tick = 0
@@ -33,8 +33,10 @@ def setup():
   difficulty = "hard"
   tid = 0
   runningTids = []
-  meme_muted = False
+  meme_muted = True
   level_audio = None
+  last_atk = -1
+  extra_score = 0
   
   mspt = 0
   last_ticks = []

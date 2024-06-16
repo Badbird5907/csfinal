@@ -6,7 +6,7 @@ from util.key import *
 from level.player_control import *
 from renderer.button import *
 
-from renderer.human import *
+from renderer.sprite.human import *
 from renderer.key import *
 
 from level.pathfinder import *
@@ -14,7 +14,7 @@ from level.follower import *
 
 def setupIntro():
   initPlayerControl(1920/2, 1080/2)
-  global lvl_bg, intro_water_img
+  global lvl_bg, intro_water_img, hp
   lvl_bg = loadImage("assets/levels/intro/bg.png")
   intro_water_img = loadImage("assets/levels/intro/water.png")
   global intro_state
@@ -22,6 +22,7 @@ def setupIntro():
   global grid, calc_paths
   calc_paths = []
   grid = construct_grid()
+  hp = 9999
   return
 
 def cleanupIntro():
@@ -49,7 +50,7 @@ def drawIntro():
     text("to move!", start[0] + 260, start[1] + 50)
     if (isKeyPressed("w") or isKeyPressed("a") or isKeyPressed("s") or isKeyPressed("d")):
       intro_state = 1
-      createHuman(1920/2, 1080/2 + 100)
+      createEntity(1920/2, 1080/2 + 100)
   elif (intro_state == 1):
     text("These are humans", start[0] + 70, start[1])
     text("Press ", start[0], start[1] + 50)
@@ -83,7 +84,20 @@ def drawIntro():
     text(" again to make them stop following!", start[0] + 160, start[1] + 50)
     if (len(getHumansFollowing()) == 0):
       intro_state = 4
+      for id in humans:
+        removeEntity(id)
+      createEntity(1920/2, 1080/2 + 100, True)
+      createEntity(1920/2 - 75, 1080/2 + 100, True)
   elif (intro_state == 4):
+    image(intro_water_img, 0, 0)
+    text("These are enemies", start[0] + 70, start[1])
+    text("They will try to catch you!", start[0], start[1] + 50)
+    text("Press ", start[0] + 30, start[1] + 100)
+    renderKeyAnimated(start[0] + 120, start[1] + getKeyOffset() + 50, "x")
+    text(" to kill them!", start[0] + 160, start[1] + 100)
+    if (len(getAllEnemies()) == 0):
+      intro_state = 5
+  elif (intro_state == 5):
     image(intro_water_img, 0, 0)
     text("That's it!", start[0] + 100, start[1])
     text("Enjoy the game!", start[0] + 70, start[1] + 50)
@@ -91,8 +105,8 @@ def drawIntro():
     offset = getKeyOffset()
     renderKeyAnimated(start[0] + 120, start[1] + offset + 50, "E")
     text(" to start!", start[0] + 160, start[1] + 100)
-  renderKey(width - 140, height - 50 - getKeyOffset(), "e", False)
-  text("Skip", width - 100, height - 50)
+  renderKey(width - 140, height - 85 - getKeyOffset(), "e", False)
+  text("Skip", width - 100, height - 85)
   if (isKeyPressed("e")):
       global scene
       scene = "game"
