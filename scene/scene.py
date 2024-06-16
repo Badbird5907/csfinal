@@ -3,6 +3,7 @@ from scene.intro import *
 from scene.blank import *
 from scene.end import *
 from scene.main import *
+from util.audio import *
 def drawScene():
   scenes = {
     "intro": {
@@ -31,15 +32,27 @@ def drawScene():
       "cleanup": cleanupMain
     }
   }
-  global scene, lastScene
+  global scene, lastScene, level_audio, meme_muted
   if scene != lastScene:
     scenes[scene]["setup"]()
-    # cleanup previous scene
-    if lastScene != "dummy":
+    if not meme_muted and level_audio != None:
+      playAudio(level_audio).loop()
+    if lastScene != "dummy": # cleanup previous scene
+      if level_audio != None:
+        stopAudio(level_audio)
       scenes[lastScene]["cleanup"]()
     lastScene = scene
     global humans, calc_paths
     humans = {}
     calc_paths = []
   scenes[scene]["main"]()
+  if (level_audio != None):
+    renderKey(width - 140, height - 50 - getKeyOffset(), "m", meme_muted)
+    text("Unmute" if meme_muted else "Mute", width - 100, height - 50)
+    if (isKeyTyped("m")):
+      meme_muted = not meme_muted
+      if meme_muted:
+        stopAudio("rick")
+      else:
+        playAudio("rick").loop()
   return

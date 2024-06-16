@@ -22,7 +22,7 @@ from renderer.debug.raycastdbg import *
 def setup():
   global scene, tick, last_input, heldKeys, lastScene
   global tile_size, typedKey, mspt, last_ticks, mspt_overhead, last_tick_overhead, last_tick_end, mspt_total
-  global water_polys, score, tid, runningTids, difficulty
+  global water_polys, score, tid, runningTids, difficulty, meme_muted, level_audio
   scene = "main"
   last_input = millis()
   tick = 0
@@ -33,6 +33,8 @@ def setup():
   difficulty = "hard"
   tid = 0
   runningTids = []
+  meme_muted = False
+  level_audio = None
   
   mspt = 0
   last_ticks = []
@@ -98,4 +100,6 @@ def mouseReleased():
   rayCastDbgMouseClicked()
   buttonsHandleClick()
 
-  playAudio("vine-boom")
+  global meme_muted
+  if not meme_muted:
+    playAudio("vine-boom")

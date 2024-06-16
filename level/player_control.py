@@ -1,16 +1,17 @@
 from util.key import *
+from util.audio import *
 
 def initPlayerControl(spawnX, spawnY):
-  global pX, pY, facing, velX, velY, pbbMax
+  global pX, pY, facing, velX, velY, pbbMax, last_walk_audio
   pX = spawnX
   pY = spawnY
   facing = "front"
   velX = 0
   velY = 0
   pbbMax = (0, 0)
-
+  last_walk_audio = -1
 def playerControlTick():
-  global pX, pY, facing, velX, velY
+  global pX, pY, facing, velX, velY, last_walk_audio
   pXBefore = pX
   pYBefore = pY
   mov = 0.5
@@ -42,8 +43,12 @@ def playerControlTick():
   if (round(pXBefore) != round(pX) or round(pYBefore) != round(pY)):
     global otter_state
     otter_state = "run"
+    if (millis() - last_walk_audio > 2900):
+      playAudio("grass")
+      last_walk_audio = millis()
   else:
     otter_state = "idle"
+    stopAudio("grass")
   
   # check out of bounds
   # TODO: dynamic bounds

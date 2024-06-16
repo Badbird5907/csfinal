@@ -9,6 +9,7 @@ from level.pathfinder import *
 from level.follower import *
 from level.scoretracker import *
 from level.timer import *
+from util.audio import *
 
 def game_countScore():
   global humans, score, difficulty
@@ -25,6 +26,7 @@ def game_countScore():
         if (difficulty == "easy"):
           score += 5
           removeHuman(id)
+          playAudio("splash_in")
         else:
           score += 10
   return score
@@ -60,6 +62,7 @@ def cleanupGame():
 def drawGame():
   playerControlTick()
   global lvl_bg, main_trees, debug_bb, last_human_spawn, pX, pY, water_polys
+  global meme_muted
   image(lvl_bg, 0, 0)
 
   tickFollower()
@@ -92,6 +95,9 @@ def drawGame():
   
   drawTimer()
   drawScore()
+
+  textSize(16)
+
 
   drawOtter(pX, pY, 0.5)
   return
