@@ -52,7 +52,7 @@ def drawScene():
     if (isKeyTyped("m")):
       meme_muted = not meme_muted
       if meme_muted:
-        stopAudio("rick")
+        stopAudio(level_audio)
       else:
-        playAudio("rick").loop()
+        playAudio(level_audio).loop()
   return

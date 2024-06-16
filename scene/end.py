@@ -15,11 +15,12 @@ from level.follower import *
 
 def setupEnd():
   initPlayerControl(1920/2, 1080/2)
-  global lvl_bg
+  global lvl_bg, level_audio
   lvl_bg = loadImage("assets/levels/intro/bg.png")
   global grid, calc_paths
   calc_paths = []
   grid = construct_grid()
+  level_audio = "end"
   return
 
 def cleanupEnd():
