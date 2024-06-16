@@ -1,8 +1,10 @@
 from util.key import *
 from util.audio import *
+from level.pathfinder import *
+from util.threading import *
 
 def initPlayerControl(spawnX, spawnY):
-  global pX, pY, facing, velX, velY, pbbMax, last_walk_audio
+  global pX, pY, facing, velX, velY, pbbMax, last_walk_audio, paths_tid
   pX = spawnX
   pY = spawnY
   facing = "front"
@@ -10,6 +12,12 @@ def initPlayerControl(spawnX, spawnY):
   velY = 0
   pbbMax = (0, 0)
   last_walk_audio = -1
+  paths_tid = setInterval(calculatePaths, 50)
+
+def cleanupPlayerControl():
+  global paths_tid
+  killThread(paths_tid)
+
 def playerControlTick(endGameFunc = None):
   global pX, pY, facing, velX, velY, last_walk_audio, hp
   if (endGameFunc != None and hp <= 0):

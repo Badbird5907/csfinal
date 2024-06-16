@@ -15,16 +15,18 @@ from level.follower import *
 
 def setupBlank():
   initPlayerControl(1920/2, 1080/2)
-  global lvl_bg
+  global lvl_bg, meme_muted
   lvl_bg = loadImage("assets/levels/intro/bg.png")
   global grid, calc_paths
   calc_paths = []
   grid = construct_grid()
+  meme_muted = True
   return
 
 def cleanupBlank():
   global humans
   humans = {}
+  cleanupPlayerControl()
   return
 
 def drawBlank():
@@ -32,13 +34,13 @@ def drawBlank():
   global lvl_bg, debug_bb, humans, grid, pX, pY
   image(lvl_bg, 0, 0)
 
-  polygon = [(800, 344), (568, 600), (1008, 656), (1272, 432), (1064, 208)]
-  color = (255,0,0)
-  inside = isInsidePolygon((pX, pY), polygon)
+  #polygon = [(800, 344), (568, 600), (1008, 656), (1272, 432), (1064, 208)]
+  #color = (255,0,0)
+  #inside = isInsidePolygon((pX, pY), polygon)
   # print(inside)
-  if inside:
-     color = (0, 0, 255)
-  drawPolygon(polygon, color)
+  #if inside:
+  #   color = (0, 0, 255)
+  #drawPolygon(polygon, color)
 
   fill(0,0,0)
   if (isKeyPressed("e")):

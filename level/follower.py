@@ -38,15 +38,15 @@ def wander(human):
         if millis() - human["last_follow_ms"] > 5000 and millis() - human["last_wander_ms"] > human["next_wander_ms"]:
             #print("Wandering")
             randTile = getRandomTileAround(human["pos"])
-            posTile = (human["pos"][0] // tile_size, human["pos"][1] // tile_size)
+            # posTile = (human["pos"][0] // tile_size, human["pos"][1] // tile_size)
             human["path"] = [randTile]
-
             human["last_wander_ms"] = millis()
             human["next_wander_ms"] = randInt(3500, 7000) if difficulty == "hard" else randInt(7000, 14000)
             x = human["pos"][0] // tile_size
             y = human["pos"][1] // tile_size
             data = createPathData(human, human["path"], x, y)
             calc_paths[human["id"]] = data
+
             #print("Wandered to " + str(human["path"]))
 
 def tickFollower():

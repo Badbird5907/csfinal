@@ -14,7 +14,7 @@ def drawPolygon(polygon, color = None, allowInvalid = False): # draw the polygon
     line(polygon[i][0], polygon[i][1], polygon[i + 1][0], polygon[i + 1][1])
   return
 
-def isInsidePolygon(pos, polygon): # TODO: impl once raycast is done
+def isInsidePolygon(pos, polygon):
   intersections = 0
   ray = posToExtrapolated(pos)
   #stroke(255,0,0)

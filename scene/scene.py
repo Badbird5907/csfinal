@@ -34,13 +34,14 @@ def drawScene():
   }
   global scene, lastScene, level_audio, meme_muted
   if scene != lastScene:
-    scenes[scene]["setup"]()
-    if not meme_muted and level_audio != None:
-      playAudio(level_audio).loop()
     if lastScene != "dummy": # cleanup previous scene
       if level_audio != None:
         stopAudio(level_audio)
       scenes[lastScene]["cleanup"]()
+    level_audio = None
+    scenes[scene]["setup"]()
+    if not meme_muted and level_audio != None:
+      playAudio(level_audio).loop()
     lastScene = scene
     global humans, calc_paths
     humans = {}

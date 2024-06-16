@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "lv1.tmx",
+    "activeFile": "Tree1.tsx",
     "expandedProjectPaths": [
         "."
     ],
@@ -32,16 +32,16 @@
             "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 959,
-                "y": 543
+                "x": 956,
+                "y": 540
             }
         },
         "lv1.tmx": {
             "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 993.3333333333333,
-                "y": 760
+                "x": 959.3333333333333,
+                "y": 535.3333333333333
             }
         },
         "smallerpx.tmx": {
@@ -64,15 +64,16 @@
     "openFiles": [
         "Islands.tsx",
         "intro.tmx",
-        "lv1.tmx"
+        "lv1.tmx",
+        "Tree1.tsx"
     ],
     "project": "final.tiled-project",
     "recentFiles": [
         "Islands.tsx",
         "intro.tmx",
         "lv1.tmx",
-        "smallerpx.tmx",
         "Tree1.tsx",
+        "smallerpx.tmx",
         "Village.tsx",
         "C:/Users/evanl/Downloads/islands_tileset_v2_byBrysia/Islands.tsx"
     ],

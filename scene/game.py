@@ -12,7 +12,7 @@ from level.timer import *
 from util.audio import *
 
 def game_countScore():
-  global humans, difficulty, extra_score
+  global humans, difficulty, extra_score, humansScore
   if (difficulty != "easy"):
     humansScore = 0
   for id in humans: # make sure there is no concurrent modification issues
@@ -34,6 +34,7 @@ def game_countScore():
 def game_endGame():
   global scene
   scene = "end"
+  cleanupPlayerControl()
   return
 
 def setupGame():
@@ -77,18 +78,14 @@ def drawGame():
   tickFollower()
 
   tree_bb = [((0, 0), (696, 208)), ((0, 208), (640, 312)), ((0, 312), (632, 432)), ((0, 432), (488, 472)), ((0, 472), (224, 552)), ((224, 472), (336, 520))]
-  #[[(0, 0), (698, 205)],[(0, 205), (669, 310)],[(0, 310), (634, 436)],[(0, 436), (418, 548)] ]
 
   showDbgBBList(tree_bb)
-
-  #inside = isInsidePolygon((pX, pY), water_poly)
-  #print(inside)
-  #color = (0, 0, 255) if inside else (255,0,0)
-  showDbgPolyBB(water_polys)
-
+  for poly in water_polys:
+    showDbgPolyBB(poly)
 
   should_tint = isInsideBBList(tree_bb, (pX, pY))
 
+  tint(255, 255)
   if should_tint:
     tint(255, 128)
 

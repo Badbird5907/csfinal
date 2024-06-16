@@ -16,12 +16,16 @@ def initAudio():
     loadAudio(file)
 
 def playAudio(file):
+  if file == None:
+    return
   audio = loadAudio(file)
   audio.rewind()
   audio.play()
   return audio
 
 def stopAudio(file):
+  if file == None:
+    return
   audio = loadAudio(file)
   audio.pause()
   return audio

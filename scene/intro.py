@@ -28,6 +28,7 @@ def setupIntro():
 def cleanupIntro():
   global humans
   humans = {}
+  cleanupPlayerControl()
   return
 
 def drawIntro():
@@ -87,7 +88,7 @@ def drawIntro():
       for id in humans:
         removeEntity(id)
       createEntity(1920/2, 1080/2 + 100, True)
-      createEntity(1920/2 - 75, 1080/2 + 100, True)
+      createEntity(1920/4, 1080/2 + 100, True)
   elif (intro_state == 4):
     image(intro_water_img, 0, 0)
     text("These are enemies", start[0] + 70, start[1])

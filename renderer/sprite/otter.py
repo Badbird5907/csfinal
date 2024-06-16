@@ -8,12 +8,13 @@ def initOtter():
   run_anims = 3 # 1-3
   global idle_imgs, current_img, idle_state
   global sleep_imgs, sleep_state, otter_state
-  global run_imgs, run_state
+  global run_imgs, run_state, sleep_rand_last
   current_img = None
   idle_state = 0
   sleep_state = 0
   otter_state = "idle"
   run_state = 0
+  sleep_rand_last = -1
 
   idle_imgs = []
   for i in range(idle_anims):
@@ -95,11 +96,11 @@ def drawIdle(x,y):
   drawImage(current_img, x, y)
   return
 
-def drawSleep(x,y):
+def drawSleep(x,y, force = False):
   global sleep_imgs, current_img, sleep_state, sleep_rand_last
 
   # every 30 seconds, randomly switch to idle
-  if millis() - sleep_rand_last > 15000:
+  if not force and millis() - sleep_rand_last > 15000:
     global last_input
     last_input = millis()
     drawIdle(x,y)

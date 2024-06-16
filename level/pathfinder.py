@@ -68,10 +68,10 @@ def createPathData(human, path, x, y):
   
 
 def calculatePaths():
-  global pX, pY, humans, tile_size, calc_paths, grid
   # check if the variables are defined
   if "pX" not in globals() or "pY" not in globals() or "humans" not in globals() or "tile_size" not in globals() or "calc_paths" not in globals() or "grid" not in globals():
     return
+  global pX, pY, humans, tile_size, calc_paths, grid
   human_positions = {} # [ (x, y), (x, y), ...]
   for id in humans:
     human = humans[id]

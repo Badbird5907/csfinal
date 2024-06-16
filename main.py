@@ -23,6 +23,7 @@ def setup():
   global scene, tick, last_input, heldKeys, lastScene
   global tile_size, typedKey, mspt, last_ticks, mspt_overhead, last_tick_overhead, last_tick_end, mspt_total
   global water_polys, score, tid, runningTids, difficulty, meme_muted, level_audio, hp, last_atk, extra_score
+  global paths_tid, humansScore
   scene = "main"
   last_input = millis()
   tick = 0
@@ -33,7 +34,7 @@ def setup():
   difficulty = "hard"
   tid = 0
   runningTids = []
-  meme_muted = True
+  meme_muted = False
   level_audio = None
   last_atk = -1
   extra_score = 0
@@ -47,6 +48,7 @@ def setup():
 
   water_polys = []
   score = 0
+  humansScore = 0
 
   size(1920 - 200, 1080 - 202)
   setupRenderers()
@@ -58,9 +60,9 @@ def setup():
   print(__cwd__)
 
   loadMinecraftFont()
-  setInterval(calculatePaths, 50)
-  #playBrainRot("https://cdn.badbird.dev/assets/brainrot/parkour.webm", 10, 40)
-  #playBrainRot("https://cdn.badbird.dev/assets/brainrot/subway.webm", 1550, 40)
+
+  playBrainRot("https://cdn.badbird.dev/assets/brainrot/parkour.webm", 10, 40)
+  playBrainRot("https://cdn.badbird.dev/assets/brainrot/subway.webm", 2140, 40)
   return
 
 def draw():
@@ -91,6 +93,9 @@ def draw():
   mspt_total = mspt + mspt_overhead
 
   last_tick_end = millis()
+
+  #global runningTids
+  #print(runningTids)
   return
 
 

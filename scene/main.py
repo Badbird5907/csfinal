@@ -6,15 +6,16 @@ from util.audio import *
 from util.key import *
 
 def setupMain():
-  global lvl_bg, level_audio
+  global lvl_bg, level_audio, humans, calc_paths
   lvl_bg = loadImage("assets/levels/intro/bg.png")
   level_audio = "rick"
+  humans = {}
+  calc_paths = []
   return
 
 def cleanupMain():
   global humans
   humans = {}
-  stopAudio("rick")
   return
 
 def drawMain():

@@ -23,6 +23,8 @@ def killThread(tid):
   # thread.interrupt()
   global runningTids
   runningTids.remove(tid)
+  print("Killed thread " + str(tid))
+  print("Running threads: " + str(runningTids))
 
 def getThreadName():
   return Thread.currentThread().getName()

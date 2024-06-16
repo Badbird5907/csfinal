@@ -130,7 +130,27 @@ def drawEntity(id):
       return
     alpha = map(millis() - human["enemy_fade_start"], 0, fade_duration, 255, 0)
     # print("alpha: " + str(alpha))
-    tint(255, alpha)    
+    tint(255, alpha)
+  bbMin = (pX, pY)
+  bbMax = (pX + 100, pY + 100) #(pX + pbbMax[0], pY + pbbMax[1])
+  if False and debug_bb:
+    stroke(0, 255, 0)
+    noFill()
+    rect(bbMin[0], bbMin[1], pbbMax[0], pbbMax[1])
+  if (human["enemy"] and human["enemy_fade_start"] == -1):
+    enemyAtkBBMin = (pX - 50, pY - 50)
+    enemyAtkBBMax = (pX + 150, pY + 150)
+    if debug_bb:
+      drawBB(enemyAtkBBMin, enemyAtkBBMax, (0, 255, 255))
+    if (isInsideBB(enemyAtkBBMin, enemyAtkBBMax, pos)):
+      tint(255, 0, 0)
+      if (isKeyTyped("x")):
+        removeEntity(id)
+        global extra_score, difficulty, hp
+        extra_score += 5 if difficulty == "hard" else (2 if difficulty == "medium" else 1)
+        # 25% chance to add 1 hp on easy, 15% on medium, 10% on hard
+        if (randInt(1, 100) <= (25 if difficulty == "easy" else (15 if difficulty == "medium" else 10))):
+          hp += 1
   if facing == "front":
     image(skins["front"][sid], pos[0], pos[1])
   elif facing == "back":
@@ -147,22 +167,6 @@ def drawEntity(id):
   #print("Human drawn at " + str(pos[0]) + ", " + str(pos[1]) + " with id " + str(id))
 
   # check if the human is inside the bounding box
-  bbMin = (pX, pY)
-  bbMax = (pX + 100, pY + 100) #(pX + pbbMax[0], pY + pbbMax[1])
-  if False and debug_bb:
-    stroke(0, 255, 0)
-    noFill()
-    rect(bbMin[0], bbMin[1], pbbMax[0], pbbMax[1])
-  if (human["enemy"] and human["enemy_fade_start"] == -1):
-    enemyAtkBBMin = (pX - 50, pY - 50)
-    enemyAtkBBMax = (pX + 150, pY + 150)
-    if debug_bb:
-      drawBB(enemyAtkBBMin, enemyAtkBBMax, (0, 255, 255))
-    if (isKeyTyped("x")):
-      if (isInsideBB(enemyAtkBBMin, enemyAtkBBMax, pos)):
-        removeEntity(id)
-        global extra_score, difficulty
-        extra_score += 5 if difficulty == "hard" else (2 if difficulty == "medium" else 1)
   if (isInsideBB(bbMin, bbMax, pos)):
     if not human["enemy"]:
       renderKeyAnimated(pos[0], pos[1] + 32, "SPACE", 0.5)
