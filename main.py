@@ -62,7 +62,7 @@ def setup():
   loadMinecraftFont()
 
   playBrainRot("https://cdn.badbird.dev/assets/brainrot/parkour.webm", 10, 40)
-  playBrainRot("https://cdn.badbird.dev/assets/brainrot/subway.webm", 2140, 40)
+  playBrainRot("https://cdn.badbird.dev/assets/brainrot/subway.webm", 1550, 40)
   return
 
 def draw():
