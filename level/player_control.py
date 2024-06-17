@@ -54,12 +54,12 @@ def playerControlTick(endGameFunc = None):
   if (round(pXBefore) != round(pX) or round(pYBefore) != round(pY)):
     global otter_state
     otter_state = "run"
-    if (millis() - last_walk_audio > 2900):
-      playAudio("grass")
-      last_walk_audio = millis()
+    #if (millis() - last_walk_audio > 2900):
+    #  playAudio("grass")
+    #  last_walk_audio = millis()
   else:
     otter_state = "idle"
-    stopAudio("grass")
+    #stopAudio("grass")
   
   # check out of bounds
   # TODO: dynamic bounds
